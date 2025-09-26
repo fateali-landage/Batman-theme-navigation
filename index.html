@@ -201,11 +201,20 @@
     }
 
     .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 900px;
-      margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 images per row on PC */
+  gap: 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Mobile View: 1 image per row */
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr; /* single column on mobile */
+  }
+}
+
     }
 
     .portfolio-grid img {
@@ -433,5 +442,6 @@
   </script>
 </body>
 </html>
+
 
 
