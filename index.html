@@ -187,51 +187,42 @@
       box-shadow: 0 0 20px #fdd835;
     }
 
-   
-  } /* Portfolio Section */
-#portfolio {
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #111, #000);
-  text-align: center;
-}
+    /* Portfolio Section */
+    #portfolio {
+      padding: 80px 20px;
+      background: linear-gradient(135deg, #111, #000);
+      text-align: center;
+    }
 
-#portfolio h2 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-  color: #fdd835;
-}
+    #portfolio h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #fdd835;
+    }
 
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 images per row on PC */
-  gap: 20px;
-  max-width: 900px;
-  margin: auto;
-}
-.portfolio-grid img {
-  width: 100%;
-  aspect-ratio: 4/3;           /* uniform aspect ratio for all images */
-  object-fit: cover;           /* crop excess but keep center */
-  border: 3px solid #fdd835;
-  border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-  cursor: pointer;
-}
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
 
-.portfolio-grid img:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 25px #fdd835;
-  border: 3px solid yellow;
-}
+    .portfolio-grid img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border: 3px solid #fdd835;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+      cursor: pointer;
+    }
 
-/* Mobile: keep the same ratio but stack */
-@media (max-width: 768px) {
-  .portfolio-grid {
-    grid-template-columns: 1fr; /* stack images */
-  }
-}
-
-
+    .portfolio-grid img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px #fdd835;
+      border: 3px solid yellow;
+    }
 
     /* Contact Section */
     #contact {
@@ -301,57 +292,84 @@
     }
 
     /* Responsive Adjustments */
-  @media (max-width: 768px) {
-  #navbar {
-    position: fixed;
-    bottom: 0;
-    top: auto;
-    left: 0;
-    transform: none;
-    width: 100%;                     /* full-width bar */
-    border-radius: 0;
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
-    background: #111;
-    border-top: 3px solid #fdd835;
-  }
+    @media (max-width: 768px) {
+      #navbar {
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        transform: none;
+        width: 100%;
+        border-radius: 0;
+        padding: 10px 0;
+        display: flex;
+        justify-content: center;
+        background: #111;
+        border-top: 3px solid #fdd835;
+      }
 
-  #navbar ul {
-    display: flex;
-    justify-content: space-around;   /* spread items */
-    align-items: center;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
+      #navbar ul {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
-  #navbar ul li {
-    flex: 1;
-    text-align: center;
-    position: relative;
-  }
+      #navbar ul li {
+        flex: 1;
+        text-align: center;
+        position: relative;
+      }
 
-  #navbar ul li a {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
+      #navbar ul li a {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
 
-  /* Floating Batman logo */
-  #navbar ul li img.batman-logo-nav {
-    position: absolute;
-    top: -25px;                      /* make it float above bar */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    background: #111;
-    border: 3px solid #fdd835;
-    border-radius: 50%;
-    padding: 5px;
-    box-shadow: 0 0 15px #fdd835;
-  }
-}
+      /* Floating Batman logo */
+      #navbar ul li img.batman-logo-nav {
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        background: #111;
+        border: 3px solid #fdd835;
+        border-radius: 50%;
+        padding: 5px;
+        box-shadow: 0 0 15px #fdd835;
+      }
 
+      .portfolio-grid {
+        grid-template-columns: 1fr; /* mobile: stack images */
+      }
+    }
+
+    /* PC-only adjustments */
+    @media (min-width: 769px) {
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #about, #portfolio, #contact, #home, #services {
+        max-width: 1200px;
+        width: 100%;
+      }
+
+      #about {
+        justify-content: center;
+      }
+
+      #services .service-cards {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on PC */
+        max-width: 900px;
+        margin: auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -442,8 +460,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
