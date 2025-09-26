@@ -37,7 +37,8 @@
       gap: 20px;
       margin: 0;
       padding: 0;
-      flex-wrap: wrap;
+      /* Ensure it stays on one line */
+      flex-wrap: nowrap; 
       align-items: center;
     }
 
@@ -57,27 +58,51 @@
       box-shadow: 0 0 10px #fdd835;
     }
 
-    /* Floating Batman Logo */
-    .batman-logo-nav {
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #111;
-      border: 3px solid #fdd835;
+    /* *UPDATED CSS for the INLINE Batman Logo* */
+    /* Styles for the list item holding the logo */
+    .batman-logo-li {
+      /* Adds extra space around the logo to make it stand out */
+      margin: 0 10px; 
+    }
+    
+    .batman-logo-li a {
+      /* Overrides the padding/sizing for text links to make the logo look round and large */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;  
+      height: 60px; 
+      padding: 0; /* Remove padding */
+      margin-top: -30px; /* *Lift the logo slightly above the bar* */
+      background: #fdd835;
+      border: 3px solid #000; /* Contrast border for the yellow circle */
       border-radius: 50%;
-      padding: 5px;
-      box-shadow: 0 0 15px #fdd835;
-      z-index: 1001;
-      animation: pulse-logo 2s infinite;
+      box-shadow: 0 0 20px #fdd835;
+      transition: all 0.3s ease;
+      animation: pulse-logo 2s infinite alternate; /* Keep the pulse animation */
+    }
+
+    .batman-logo-li a:hover {
+      background: #fff; /* Lighter hover effect */
+      box-shadow: 0 0 30px #fff;
+      transform: scale(1.05);
+    }
+
+    .batman-logo-nav-inline {
+      /* Styles for the image itself inside the yellow circle */
+      width: 40px; 
+      height: 40px;
+      /* Invert and darken the SVG to appear black inside the yellow circle */
+      filter: invert(100%) brightness(0); 
     }
 
     @keyframes pulse-logo {
-      0%, 100% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.1); }
+      from { transform: translateY(-30px) scale(1); }
+      to { transform: translateY(-35px) scale(1.05); }
     }
+
+    /* **REMOVED: The original .batman-logo-nav styles are no longer needed as the logo is now in the ul.** */
+
 
     /* Hero Section */
     #home {
@@ -303,7 +328,7 @@
       box-shadow: 0 0 15px #fdd835;
     }
 
-    /* Mobile Navbar */
+    /* Mobile Navbar Adjustments */
     @media (max-width: 768px) {
       #navbar {
         width: 90%;
@@ -314,18 +339,24 @@
       }
 
       #navbar ul {
-        display: flex;
         justify-content: space-around;
-        align-items: center;
         width: 100%;
-        margin: 0;
-        padding: 0;
-        flex-wrap: nowrap;
       }
 
       #navbar ul li a {
         font-size: 14px;
         padding: 8px 12px;
+      }
+
+      /* Adjust logo placement for smaller screens */
+      .batman-logo-li a {
+        width: 50px;
+        height: 50px;
+        margin-top: -25px; 
+      }
+      .batman-logo-nav-inline {
+        width: 30px;
+        height: 30px;
       }
     }
 
@@ -333,25 +364,28 @@
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav id="navbar">
     <ul>
       <li><a href="#home" class="active">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
+      
+      <li class="batman-logo-li">
+        <a href="#home" aria-label="Go to Home/Logo">
+          <img src="batman-icon.svg" alt="Batman Logo" class="batman-logo-nav-inline">
+        </a>
+      </li>
+
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <img src="batman-icon.svg" alt="Batman Logo" class="batman-logo-nav">
   </nav>
 
-  <!-- Hero -->
   <section id="home">
     <h1>I Am Batman</h1>
     <p>Protector of Gotham. Fear of the Night.</p>
   </section>
 
-  <!-- About -->
   <section id="about">
     <img src="batman.jpg" alt="Batman">
     <div class="about-text">
@@ -360,18 +394,16 @@
     </div>
   </section>
 
-  <!-- Services -->
   <section id="services">
     <h2>Bat-Services</h2>
     <div class="service-cards">
       <div class="card">🦇 Stealth Operations</div>
-      <div class="card">⚔️ Combat Training</div>
+      <div class="card">⚔ Combat Training</div>
       <div class="card">🚗 Batmobile Tech</div>
       <div class="card">💻 Batcomputer Intelligence</div>
     </div>
   </section>
 
-  <!-- Portfolio -->
   <section id="portfolio">
     <h2>Bat-Portfolio</h2>
     <div class="portfolio-grid">
@@ -384,7 +416,6 @@
     </div>
   </section>
 
-  <!-- Contact -->
   <section id="contact">
     <h2>Send the Bat-Signal</h2>
     <form class="contact-form" action="mailto:yourmail@example.com" method="POST" enctype="text/plain">
@@ -410,6 +441,9 @@
       });
 
       navLinks.forEach(link => {
+        // Skip logo link for active class logic
+        if (link.closest('.batman-logo-li')) return; 
+
         link.classList.remove("active");
         if (link.getAttribute("href") === "#" + current) {
           link.classList.add("active");
