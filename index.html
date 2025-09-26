@@ -170,8 +170,9 @@
 
     .service-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(2, 1fr); /* PC: 2 cards per row */
       gap: 20px;
+      justify-items: center;
     }
 
     .card {
@@ -180,6 +181,8 @@
       border-radius: 15px;
       border: 2px solid #fdd835;
       transition: transform 0.3s;
+      width: 200px;
+      text-align: center;
     }
 
     .card:hover {
@@ -202,7 +205,7 @@
 
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr); /* PC: 3 images per row */
       gap: 20px;
       max-width: 900px;
       margin: auto;
@@ -291,15 +294,15 @@
       box-shadow: 0 0 15px #fdd835;
     }
 
-    /* Responsive Adjustments */
+    /* Mobile Adjustments */
     @media (max-width: 768px) {
+      /* Navbar mobile */
       #navbar {
         position: fixed;
         bottom: 0;
-        top: auto;
         left: 0;
-        transform: none;
         width: 100%;
+        transform: none;
         border-radius: 0;
         padding: 10px 0;
         display: flex;
@@ -328,7 +331,7 @@
         padding: 8px 12px;
       }
 
-      /* Floating Batman logo */
+      /* Floating Batman logo above mobile navbar */
       #navbar ul li img.batman-logo-nav {
         position: absolute;
         top: -25px;
@@ -342,32 +345,15 @@
         box-shadow: 0 0 15px #fdd835;
       }
 
+      /* Stack service cards */
+      .service-cards {
+        grid-template-columns: 1fr; /* 1 card per row */
+        gap: 15px;
+      }
+
+      /* Stack portfolio images */
       .portfolio-grid {
-        grid-template-columns: 1fr; /* mobile: stack images */
-      }
-    }
-
-    /* PC-only adjustments */
-    @media (min-width: 769px) {
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      #about, #portfolio, #contact, #home, #services {
-        max-width: 1200px;
-        width: 100%;
-      }
-
-      #about {
-        justify-content: center;
-      }
-
-      #services .service-cards {
-        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on PC */
-        max-width: 900px;
-        margin: auto;
+        grid-template-columns: 1fr; /* 1 image per row */
       }
     }
   </style>
