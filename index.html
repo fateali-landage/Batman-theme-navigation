@@ -38,6 +38,7 @@
       margin: 0;
       padding: 0;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     #navbar ul li {
@@ -62,7 +63,6 @@
 
     .batman-logo-nav {
       width: 60px;
-      margin: 0 15px;
       filter: drop-shadow(0 0 15px #fdd835);
     }
 
@@ -77,21 +77,47 @@
       text-align: center;
       color: #fdd835;
       text-shadow: 0 0 20px #000;
+      position: relative;
+      overflow: hidden;
     }
 
     #home h1 {
       font-size: 4rem;
       margin-bottom: 20px;
       animation: glow 2s infinite alternate;
+      z-index: 1;
+      position: relative;
     }
 
     #home p {
       font-size: 1.5rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* Bat-Signal Glow */
+    #home::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(253,216,53,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: pulse 4s infinite;
     }
 
     @keyframes glow {
       from { text-shadow: 0 0 10px #fdd835; }
       to { text-shadow: 0 0 30px #fdd835; }
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
     }
 
     /* About Section */
@@ -265,12 +291,6 @@
       box-shadow: 0 0 15px #fdd835;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 10px #fdd835; }
-      50% { box-shadow: 0 0 30px #fdd835; }
-      100% { box-shadow: 0 0 10px #fdd835; }
-    }
-
     /* Responsive Adjustments */
     @media (max-width: 1024px) {
       #home h1 { font-size: 3rem; }
@@ -310,15 +330,36 @@
       .contact-form { max-width: 90%; }
     }
 
-    @media (max-width: 480px) {
-      #home h1 { font-size: 2rem; }
-      #about img { width: 150px; height: 225px; }
-      .about-text h2 { font-size: 1.5rem; }
-      .card { font-size: 0.9rem; padding: 15px; }
-      #portfolio h2, #services h2, #contact h2 { font-size: 1.5rem; }
-      .portfolio-grid { grid-template-columns: 1fr; }
-      .contact-form input, .contact-form textarea, .contact-form button { font-size: 0.9rem; padding: 10px; }
-    }
+@media (max-width: 768px) {
+  #navbar {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row; /* horizontal */
+    width: auto;
+    border-radius: 50px;
+    padding: 10px 20px;
+  }
+
+  #navbar ul {
+    flex-direction: row; /* keep items in a row */
+    gap: 12px;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  #navbar ul li a {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .batman-logo-nav {
+    width: 40px; /* slightly smaller for mobile */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -326,12 +367,12 @@
   <!-- Navbar -->
   <nav id="navbar">
     <ul>
-      <li><a href="#home" class="active">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <img src="batman-icon.svg" alt="Batman Logo" class="batman-logo-nav">
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#home" class="active" aria-label="Home">Home</a></li>
+      <li><a href="#about" aria-label="About Batman">About</a></li>
+      <li><a href="#services" aria-label="Batman Services">Services</a></li>
+      <li><img src="batman-icon.svg" alt="Batman Logo" class="batman-logo-nav"></li>
+      <li><a href="#portfolio" aria-label="Batman Portfolio">Portfolio</a></li>
+      <li><a href="#contact" aria-label="Contact Batman">Contact</a></li>
     </ul>
   </nav>
 
@@ -365,22 +406,22 @@
   <section id="portfolio">
     <h2>Bat-Portfolio</h2>
     <div class="portfolio-grid">
-      <img src="batmobile.jpg" alt="Batmobile">
-      <img src="batarang.jpg" alt="Batarang">
-      <img src="batcave.jpg" alt="Batcave">
-      <img src="bat-signal.jpg" alt="Bat Signal">
-      <img src="grappling-gun.jpg" alt="Grappling Gun">
-      <img src="armor.jpg" alt="Bat Armor">
+      <img src="batmobile.jpg" alt="Batmobile" loading="lazy">
+      <img src="batarang.jpg" alt="Batarang" loading="lazy">
+      <img src="batcave.jpg" alt="Batcave" loading="lazy">
+      <img src="bat-signal.jpg" alt="Bat Signal" loading="lazy">
+      <img src="grappling-gun.jpg" alt="Grappling Gun" loading="lazy">
+      <img src="armor.jpg" alt="Bat Armor" loading="lazy">
     </div>
   </section>
 
   <!-- Contact -->
   <section id="contact">
     <h2>Send the Bat-Signal</h2>
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea placeholder="Your Message"></textarea>
+    <form class="contact-form" action="mailto:yourmail@example.com" method="POST" enctype="text/plain">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message"></textarea>
       <button type="submit">Send Signal</button>
     </form>
   </section>
