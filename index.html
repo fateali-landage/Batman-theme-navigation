@@ -170,9 +170,8 @@
 
     .service-cards {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* PC: 2 cards per row */
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
-      justify-items: center;
     }
 
     .card {
@@ -181,8 +180,6 @@
       border-radius: 15px;
       border: 2px solid #fdd835;
       transition: transform 0.3s;
-      width: 200px;
-      text-align: center;
     }
 
     .card:hover {
@@ -205,7 +202,7 @@
 
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* PC: 3 images per row */
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
       max-width: 900px;
       margin: auto;
@@ -294,9 +291,8 @@
       box-shadow: 0 0 15px #fdd835;
     }
 
-    /* Mobile Adjustments */
+    /* Mobile Navbar */
     @media (max-width: 768px) {
-      /* Navbar mobile */
       #navbar {
         position: fixed;
         bottom: 0;
@@ -331,10 +327,10 @@
         padding: 8px 12px;
       }
 
-      /* Floating Batman logo above mobile navbar */
+      /* Floating Batman logo in middle */
       #navbar ul li img.batman-logo-nav {
         position: absolute;
-        top: -25px;
+        top: -30px;
         left: 50%;
         transform: translateX(-50%);
         width: 60px;
@@ -343,17 +339,7 @@
         border-radius: 50%;
         padding: 5px;
         box-shadow: 0 0 15px #fdd835;
-      }
-
-      /* Stack service cards */
-      .service-cards {
-        grid-template-columns: 1fr; /* 1 card per row */
-        gap: 15px;
-      }
-
-      /* Stack portfolio images */
-      .portfolio-grid {
-        grid-template-columns: 1fr; /* 1 image per row */
+        z-index: 1001;
       }
     }
   </style>
