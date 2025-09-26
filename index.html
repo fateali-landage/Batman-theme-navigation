@@ -37,9 +37,12 @@
       gap: 20px;
       margin: 0;
       padding: 0;
-      /* Ensure it stays on one line */
-      flex-wrap: nowrap; 
       align-items: center;
+      position: relative;
+    }
+
+    #navbar ul li {
+      position: relative;
     }
 
     #navbar ul li a {
@@ -58,51 +61,11 @@
       box-shadow: 0 0 10px #fdd835;
     }
 
-    /* *UPDATED CSS for the INLINE Batman Logo* */
-    /* Styles for the list item holding the logo */
-    .batman-logo-li {
-      /* Adds extra space around the logo to make it stand out */
-      margin: 0 10px; 
+    /* Batman logo */
+    .batman-logo-nav {
+      width: 60px;
+      filter: drop-shadow(0 0 15px #fdd835);
     }
-    
-    .batman-logo-li a {
-      /* Overrides the padding/sizing for text links to make the logo look round and large */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 60px;  
-      height: 60px; 
-      padding: 0; /* Remove padding */
-      margin-top: -30px; /* *Lift the logo slightly above the bar* */
-      background: #fdd835;
-      border: 3px solid #000; /* Contrast border for the yellow circle */
-      border-radius: 50%;
-      box-shadow: 0 0 20px #fdd835;
-      transition: all 0.3s ease;
-      animation: pulse-logo 2s infinite alternate; /* Keep the pulse animation */
-    }
-
-    .batman-logo-li a:hover {
-      background: #fff; /* Lighter hover effect */
-      box-shadow: 0 0 30px #fff;
-      transform: scale(1.05);
-    }
-
-    .batman-logo-nav-inline {
-      /* Styles for the image itself inside the yellow circle */
-      width: 40px; 
-      height: 40px;
-      /* Invert and darken the SVG to appear black inside the yellow circle */
-      filter: invert(100%) brightness(0); 
-    }
-
-    @keyframes pulse-logo {
-      from { transform: translateY(-30px) scale(1); }
-      to { transform: translateY(-35px) scale(1.05); }
-    }
-
-    /* **REMOVED: The original .batman-logo-nav styles are no longer needed as the logo is now in the ul.** */
-
 
     /* Hero Section */
     #home {
@@ -117,6 +80,14 @@
       text-shadow: 0 0 20px #000;
       position: relative;
       overflow: hidden;
+    }
+
+    #home::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 0;
     }
 
     #home h1 {
@@ -328,19 +299,33 @@
       box-shadow: 0 0 15px #fdd835;
     }
 
-    /* Mobile Navbar Adjustments */
+    /* Responsive Adjustments */
     @media (max-width: 768px) {
       #navbar {
-        width: 90%;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 50px;
+        bottom: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        border-radius: 0;
         padding: 10px 0;
+        display: flex;
+        justify-content: center;
+        background: #111;
+        border-top: 3px solid #fdd835;
       }
 
       #navbar ul {
+        display: flex;
         justify-content: space-around;
+        align-items: center;
         width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #navbar ul li {
+        flex: 1;
+        text-align: center;
       }
 
       #navbar ul li a {
@@ -348,44 +333,81 @@
         padding: 8px 12px;
       }
 
-      /* Adjust logo placement for smaller screens */
-      .batman-logo-li a {
-        width: 50px;
-        height: 50px;
-        margin-top: -25px; 
+      /* Floating Batman logo in center */
+      #navbar ul li.bat-logo-mobile {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        background: #111;
+        border: 3px solid #fdd835;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        box-shadow: 0 0 15px #fdd835;
+        z-index: 1001;
       }
-      .batman-logo-nav-inline {
-        width: 30px;
-        height: 30px;
+
+      #navbar ul li.bat-logo-mobile img {
+        width: 100%;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr; /* stack images */
+        gap: 10px;
       }
     }
 
+    /* PC-only adjustments */
+    @media (min-width: 769px) {
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #about, #portfolio, #contact, #home, #services {
+        max-width: 1200px;
+        width: 100%;
+      }
+
+      #about {
+        justify-content: center;
+      }
+
+      #services .service-cards {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 900px;
+        margin: auto;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Navbar -->
   <nav id="navbar">
     <ul>
-      <li><a href="#home" class="active">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      
-      <li class="batman-logo-li">
-        <a href="#home" aria-label="Go to Home/Logo">
-          <img src="batman-icon.svg" alt="Batman Logo" class="batman-logo-nav-inline">
-        </a>
-      </li>
-
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#home" class="active" aria-label="Home">Home</a></li>
+      <li><a href="#about" aria-label="About Batman">About</a></li>
+      <li><a href="#services" aria-label="Batman Services">Services</a></li>
+      <li class="bat-logo-mobile"><img src="batman-icon.svg" alt="Batman Logo" class="batman-logo-nav"></li>
+      <li><a href="#portfolio" aria-label="Batman Portfolio">Portfolio</a></li>
+      <li><a href="#contact" aria-label="Contact Batman">Contact</a></li>
     </ul>
   </nav>
 
+  <!-- Hero -->
   <section id="home">
     <h1>I Am Batman</h1>
     <p>Protector of Gotham. Fear of the Night.</p>
   </section>
 
+  <!-- About -->
   <section id="about">
     <img src="batman.jpg" alt="Batman">
     <div class="about-text">
@@ -394,16 +416,18 @@
     </div>
   </section>
 
+  <!-- Services -->
   <section id="services">
     <h2>Bat-Services</h2>
     <div class="service-cards">
       <div class="card">🦇 Stealth Operations</div>
-      <div class="card">⚔ Combat Training</div>
+      <div class="card">⚔️ Combat Training</div>
       <div class="card">🚗 Batmobile Tech</div>
       <div class="card">💻 Batcomputer Intelligence</div>
     </div>
   </section>
 
+  <!-- Portfolio -->
   <section id="portfolio">
     <h2>Bat-Portfolio</h2>
     <div class="portfolio-grid">
@@ -416,6 +440,7 @@
     </div>
   </section>
 
+  <!-- Contact -->
   <section id="contact">
     <h2>Send the Bat-Signal</h2>
     <form class="contact-form" action="mailto:yourmail@example.com" method="POST" enctype="text/plain">
@@ -441,9 +466,6 @@
       });
 
       navLinks.forEach(link => {
-        // Skip logo link for active class logic
-        if (link.closest('.batman-logo-li')) return; 
-
         link.classList.remove("active");
         if (link.getAttribute("href") === "#" + current) {
           link.classList.add("active");
@@ -451,6 +473,5 @@
       });
     });
   </script>
-
 </body>
 </html>
